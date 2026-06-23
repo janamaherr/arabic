@@ -13,6 +13,18 @@ import streamlit as st
 from camel_tools.disambig.mle import MLEDisambiguator
 from camel_tools.tokenizers.word import simple_word_tokenize
 
+@st.cache_resource
+def download_camel_data():
+    """Checks if data folder exists on Streamlit Cloud; if not, triggers installation."""
+    data_path = os.path.expanduser('~/.camel_tools_data')
+    if not os.path.exists(data_path):
+        # Triggers camel_data command-line downloader safely via background process
+        subprocess.run(["camel_data", "-i", "disambig-mle-calima-msa-r13"], check=True)
+    return True
+
+# Run the data downloader automatically before executing any analytical imports
+_ = download_camel_data()
+
 st.set_page_config(page_title="Arabic Diacritization & POS Tagger", layout="wide")
 
 # Strings CAMeL Tools uses when a feature has no real value
