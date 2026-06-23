@@ -1,6 +1,6 @@
 streamlit
-camel-tools==1.5.5
+camel-tools==1.6.0
+editdistance==0.6.2
 numpy
 scipy
 scikit-learn
-editdistance==0.6.2
